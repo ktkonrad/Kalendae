@@ -11,13 +11,13 @@ if (typeof document.addEventListener === 'function') Kalendae.util.domReady(func
 		e = els[i];
 		optionsRaw = e.getAttribute('data-kal');
 		options = (optionsRaw == null || optionsRaw == "") ? {} : (new Function('return {' + optionsRaw + '};'))();
-
+                options['id'] = options['id'] || 'default';
 		if (e.tagName === 'INPUT') {
 			//if element is an input, bind a popup calendar to the input.
-			new Kalendae.Input(e, options);
+		        Kalendae[options['id']] = new Kalendae.Input(e, options);
 		} else {
 			//otherwise, insert a flat calendar into the element.
-			new Kalendae(util.merge(options, {attachTo:e}));
+			Kalendae[options['id']] = new Kalendae(util.merge(options, {attachTo:e}));
 		}
 		
 	}
